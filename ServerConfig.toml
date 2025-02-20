@@ -1,0 +1,11 @@
+[General]
+AuthKey = "dc1422ee-7a95-49f1-a0b5-f0726aee8de5"
+Debug = false
+Description = "^lThis is a free server provided by VanishedServers! To get a server of your own, head over to ^nhttps://beam-mp.vanishedmc.com^r^l or join the discord server over at ^nhttps://discord.gg/jrKQmdDtGa^r^l!"
+Map = "/levels/gridmap_v2/info.json"
+MaxCars = 1
+MaxPlayers = 5
+Name = "^a^l⭐ BeamMP Server ⭐ ^f^l- ^b^l^nFree Beam-MP Server^r^b^l provided by ^e^nVanishedServers!"
+Port = 5004
+Private = false
+ResourceFolder = 'Resources'
