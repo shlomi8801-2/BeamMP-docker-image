@@ -1,0 +1,122 @@
+{
+    "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY PTERODACTYL PANEL - PTERODACTYL.IO",
+    "meta": {
+        "version": "PTDL_v2",
+        "update_url": null
+    },
+    "exported_at": "2025-02-27T10:26:52+02:00",
+    "name": "Beam-MP",
+    "author": "shlomi8801@gmail.com",
+    "description": "Beam-MP Server",
+    "features": null,
+    "docker_images": {
+        "ghcr.io\/shlomi8801-2\/pterodactyl-beammp:latest": "ghcr.io\/shlomi8801-2\/pterodactyl-beammp:latest"
+    },
+    "file_denylist": [],
+    "startup": ".\/BeamMP-Server",
+    "config": {
+        "files": "{\r\n    \"ServerConfig.toml\": {\r\n        \"parser\": \"file\",\r\n        \"find\": {\r\n            \"Debug =\": \"Debug = {{env.DEBUG}}\",\r\n            \"Private =\": \"Private = {{env.PRIVATE}}\",\r\n            \"Port =\": \"Port = {{server.build.default.port}}\",\r\n            \"MaxCars =\": \"MaxCars = {{env.CARS}}\",\r\n            \"MaxPlayers =\": \"MaxPlayers = {{env.MAXPLAYERS}}\",\r\n            \"Map =\": \"Map = \\\"{{env.MAP}}\\\"\",\r\n            \"Name =\": \"Name = \\\"{{env.NAME}}\\\"\",\r\n            \"Description =\": \"Description = \\\"{{env.DESC}}\\\"\",\r\n            \"Use =\": \"Use = \\\"{{env.RESOURCE}}\\\"\",\r\n            \"AuthKey =\": \"AuthKey = \\\"{{env.AUTH}}\\\"\"\r\n        }\r\n    }\r\n}",
+        "startup": "{\r\n    \"done\": \"Vehicle event network online\"\r\n}",
+        "logs": "{}",
+        "stop": "exit"
+    },
+    "scripts": {
+        "installation": {
+            "script": "#!\/bin\/bash\r\n\r\n#install wget and unzip\r\napt -y update\r\napt -y install wget unzip\r\n\r\n#move to server directory\r\nmkdir \/mnt\/server\r\ncd \/mnt\/server\r\n\r\n#default config\r\necho \"[General]\r\nAuthKey = ''\r\nDebug = false,\r\nDescription = ''\r\nMap = ''\r\nMaxCars =1\r\nMaxPlayers = 5\r\nName = ''\r\nPort = 1\r\nPrivate = true\r\nResourceFolder = 'Resources'\" >> ServerConfig.toml\r\n\r\nwget https:\/\/github.com\/BeamMP\/BeamMP-Server\/releases\/latest\/download\/BeamMP-Server-linux\r\nmv BeamMP-Server-linux BeamMP-Server\r\nchmod +x BeamMP-Server",
+            "container": "ubuntu:18.04",
+            "entrypoint": "bash"
+        }
+    },
+    "variables": [
+        {
+            "name": "Cars",
+            "description": "Maximum amount of cars per player. Can be either 1 or 2",
+            "env_variable": "CARS",
+            "default_value": "1",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|int|min:1",
+            "field_type": "text"
+        },
+        {
+            "name": "Max players",
+            "description": "Maximum amount of players that can join the server.",
+            "env_variable": "MAXPLAYERS",
+            "default_value": "5",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|int|min:1",
+            "field_type": "text"
+        },
+        {
+            "name": "Map",
+            "description": "What map the server will use\r\n(put the zip files in Resources folder)\r\ndefault maps are:\r\n- \"\/levels\/gridmap\/info.json\"\r\n\r\n- \"\/levels\/automation_test_track\/info.json\"\r\n\r\n- \"\/levels\/east_coast_usa\/info.json\"\r\n\r\n- \"\/levels\/hirochi_raceway\/info.json\"\r\n\r\n- \"\/levels\/italy\/info.json\"\r\n\r\n- \"\/levels\/jungle_rock_island\/info.json\"\r\n\r\n- \"\/levels\/industrial\/info.json\"\r\n\r\n- \"\/levels\/small_island\/info.json\"\r\n\r\n- \"\/levels\/smallgrid\/info.json\"\r\n\r\n- \"\/levels\/utah\/info.json\"\r\n\r\n- \"\/levels\/west_coast_usa\/info.json\"\r\n\r\n- \"\/levels\/driver_training\/info.json\"\r\n\r\n- \"\/levels\/derby\/info.json\"",
+            "env_variable": "MAP",
+            "default_value": "\/levels\/gridmap_v2\/info.json",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string",
+            "field_type": "text"
+        },
+        {
+            "name": "Name",
+            "description": "Title for your Beam-MP server",
+            "env_variable": "NAME",
+            "default_value": "BeamMP Server",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string",
+            "field_type": "text"
+        },
+        {
+            "name": "Description",
+            "description": "Description for your server!",
+            "env_variable": "DESC",
+            "default_value": "good beamng server",
+            "user_viewable": true,
+            "user_editable": false,
+            "rules": "required|string|max:300",
+            "field_type": "text"
+        },
+        {
+            "name": "Authentication Key",
+            "description": "BeamMP's Server Authentication key. see documentation for more information\r\ngrab it from: https:\/\/keymaster.beammp.com\/login",
+            "env_variable": "AUTH",
+            "default_value": "-",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|max:50",
+            "field_type": "text"
+        },
+        {
+            "name": "Private",
+            "description": "Private servers will not show up on the server list",
+            "env_variable": "PRIVATE",
+            "default_value": "false",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|in:true,false",
+            "field_type": "text"
+        },
+        {
+            "name": "Debug mode",
+            "description": "Run the server in debug mode",
+            "env_variable": "DEBUG",
+            "default_value": "false",
+            "user_viewable": false,
+            "user_editable": false,
+            "rules": "required|string|in:true,false",
+            "field_type": "text"
+        },
+        {
+            "name": "Resource",
+            "description": "Resource folder location\r\ndon't change it unless you know what you are doing",
+            "env_variable": "RESOURCE",
+            "default_value": "\"Resources\"",
+            "user_viewable": false,
+            "user_editable": false,
+            "rules": "required|string|max:50",
+            "field_type": "text"
+        }
+    ]
+}
