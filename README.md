@@ -1,1 +1,1 @@
-source:https://github.com/BeamMP/BeamMP-Server
+modified version of https://github.com/BeamMP/BeamMP-Server
